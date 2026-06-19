@@ -63,7 +63,7 @@ class AskCopiloto(foo.Operator):
                 # Real API
                 response = ask(user_message, mock=False)
                 
-            return {"response": response}
+            return {"status": "success", "message": "Copiloto respondió exitosamente", "response": response}
         except Exception as e:
             return {"status": "error", "message": f"Aviso de Guardian: {str(e)}"}
 
@@ -161,7 +161,7 @@ class GenerateBriefing(foo.Operator):
                     mock=False
                 )
 
-            return {"briefing": briefing}
+            return {"status": "success", "message": "Briefing generado exitosamente", "briefing": briefing}
         except Exception as e:
             return {"status": "error", "message": f"Aviso de Guardian: {str(e)}"}
 
