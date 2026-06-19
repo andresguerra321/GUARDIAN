@@ -6,3 +6,5 @@ description: >
   señalización y condiciones de vía.
 operators:
   - run_centinela
+secrets:
+  - GEMINI_API_KEY

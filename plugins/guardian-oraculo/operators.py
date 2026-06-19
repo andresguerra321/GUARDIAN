@@ -1,19 +1,17 @@
 """
 GUARDIAN - Oráculo Operators
 =============================
-
 Operators de FiftyOne para el agente Oráculo.
 """
 
 import os
-from pathlib import Path
-
-_PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
-_PROJECT_ROOT = os.path.dirname(os.path.dirname(_PLUGIN_DIR))
 
 import fiftyone as fo
 import fiftyone.operators as foo
 import fiftyone.operators.types as types
+
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 class EvaluateRisk(foo.Operator):
     @property
@@ -27,12 +25,12 @@ class EvaluateRisk(foo.Operator):
 
     def resolve_input(self, ctx):
         inputs = types.Object()
-        inputs.bool("use_mock", label="Usar Mock", default=False)
+        inputs.bool("use_mock", label="Usar Mock", default=True)
         inputs.str(
             "msg",
             label="Aviso",
             default="Esto sobreescribirá los scores de riesgo existentes en el dataset.",
-            view=types.Warning(label="Ejecutar Oráculo")
+            view=types.Warning(label="Ejecutar Oráculo"),
         )
         return types.Property(inputs)
 
@@ -41,10 +39,10 @@ class EvaluateRisk(foo.Operator):
             import sys
             if _PROJECT_ROOT not in sys.path:
                 sys.path.insert(0, _PROJECT_ROOT)
-                
-            use_mock = ctx.params.get("use_mock", False)
+
+            use_mock = ctx.params.get("use_mock", True)
             dataset = ctx.dataset
-            
+
             agents_imported = False
             if not use_mock:
                 try:
@@ -56,10 +54,10 @@ class EvaluateRisk(foo.Operator):
 
             for sample in dataset.iter_samples(autosave=True, progress=True):
                 if use_mock or not agents_imported:
+                    # --- Mock ---
                     risk_score = 0.0
                     risk_factors = []
-                    
-                    # Verificar si existen detecciones del centinela de manera segura
+
                     detections_obj = sample.get("detections", None)
                     if detections_obj is not None and hasattr(detections_obj, "detections"):
                         for det in detections_obj.detections:
@@ -78,12 +76,10 @@ class EvaluateRisk(foo.Operator):
                             elif det.label == "sign":
                                 risk_score += 0.5
                     else:
-                        risk_factors.append("No se encontraron detecciones previas válidas.")
+                        risk_factors.append("Sin detecciones previas.")
 
-                    # Limitar el score a 10.0 (según contrato)
                     risk_score = min(float(risk_score), 10.0)
-                    
-                    # Determinar nivel de riesgo según RiskScore
+
                     if risk_score <= 3.0:
                         risk_level = "low"
                         recommendation = "Continúe ruta normal."
@@ -95,16 +91,15 @@ class EvaluateRisk(foo.Operator):
                         recommendation = "Alerta: Reduzca la velocidad inmediatamente."
                     else:
                         risk_level = "critical"
-                        recommendation = "¡PELIGRO! Detenga el vehículo de inmediato o evada el peligro."
+                        recommendation = "¡PELIGRO! Detenga el vehículo de inmediato."
 
-                    # Guardar en contratos de datos estrictos
                     sample["risk_score"] = float(risk_score)
                     sample["risk_level"] = str(risk_level)
-                    sample["risk_factors"] = risk_factors  # list de str
+                    sample["risk_factors"] = risk_factors
                     sample["recommendation"] = str(recommendation)
                     sample["historical_incidents"] = 0
                 else:
-                    # Integración Real
+                    # --- Integración real con agents.oraculo ---
                     dets_contract = []
                     detections_obj = sample.get("detections", None)
                     if detections_obj is not None and hasattr(detections_obj, "detections"):
@@ -114,10 +109,9 @@ class EvaluateRisk(foo.Operator):
                                 confidence=getattr(d, "confidence", 1.0),
                                 bounding_box=d.bounding_box,
                                 severity=getattr(d, "severity", "medium"),
-                                description=getattr(d, "description", "")
+                                description=getattr(d, "description", ""),
                             ))
-                    
-                    # Evaluate risk con API
+
                     risk_obj = evaluate_risk(dets_contract, metadata={})
                     sample["risk_score"] = float(risk_obj.score)
                     sample["risk_level"] = str(risk_obj.level)
@@ -125,10 +119,7 @@ class EvaluateRisk(foo.Operator):
                     sample["recommendation"] = str(risk_obj.recommendation)
                     sample["historical_incidents"] = risk_obj.historical_incidents
 
-            # Recargar dataset en la UI
             ctx.trigger("reload_dataset")
             return {"status": "success", "message": "Oráculo evaluó los riesgos correctamente"}
         except Exception as e:
-            return {"status": "error", "message": f"Aviso de Guardian: {str(e)}"}
-
-
+            return {"status": "error", "message": f"Error en Oráculo: {str(e)}"}

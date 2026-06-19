@@ -6,3 +6,5 @@ description: >
 operators:
   - ask_copiloto
   - generate_briefing
+secrets:
+  - GEMINI_API_KEY
