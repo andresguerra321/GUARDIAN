@@ -1,4 +1,5 @@
-"""
-GUARDIAN - Plugin Dashboard
-Panel personalizado de FiftyOne para el centro de control.
-"""
+from .panels import GuardianDashboard
+
+
+def register(p):
+    p.register(GuardianDashboard)

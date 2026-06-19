@@ -4,6 +4,8 @@ description: >
   Dashboard Guardian - Panel personalizado de FiftyOne que sirve como
   centro de control para monitorear la flota, visualizar alertas,
   scores de riesgo y comunicaciones del Copiloto.
+fiftyone:
+  version: ">=0.23.0"
 panels:
   - GuardianDashboard
 operators:
