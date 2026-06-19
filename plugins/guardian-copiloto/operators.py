@@ -36,10 +36,8 @@ class AskCopiloto(foo.Operator):
             # Bloque try-except de control para integración futura
             copiloto_imported = False
             try:
-                # from agents.copiloto import ask_llm
-                # response = ask_llm(user_message, ctx.dataset)
-                # copiloto_imported = True
-                pass
+                from agents.copiloto import ask
+                copiloto_imported = True
             except ImportError:
                 copiloto_imported = False
 
@@ -50,6 +48,9 @@ class AskCopiloto(foo.Operator):
                     "Actualmente estoy operando en modo simulado, pero puedo confirmar "
                     "que el sistema GUARDIAN está procesando las telemetrías de esta sesión."
                 )
+            else:
+                # Real API
+                response = ask(user_message, mock=False)
                 
             return {"response": response}
         except Exception as e:
@@ -112,10 +113,9 @@ class GenerateBriefing(foo.Operator):
             # Bloque try-except de control para integración futura
             copiloto_imported = False
             try:
-                # from agents.copiloto import generate_narrative_briefing
-                # briefing = generate_narrative_briefing(risk_counts, avg_score)
-                # copiloto_imported = True
-                pass
+                from agents.copiloto import generate_briefing
+                from shared.contracts import RiskScore
+                copiloto_imported = True
             except ImportError:
                 copiloto_imported = False
                 
@@ -135,6 +135,16 @@ class GenerateBriefing(foo.Operator):
                     briefing += "⚠️ **ADVERTENCIA:** Se registraron factores de riesgo altos. Se recomienda cautela en los tramos identificados."
                 else:
                     briefing += "✅ **RUTA ESTABLE:** Operaciones normales. Las métricas de riesgo se mantienen en niveles tolerables."
+            else:
+                # Real API
+                rs = RiskScore(score=avg_score, factors=["Resumen general"], recommendation="Verificar el tablero.", historical_incidents=0)
+                briefing = generate_briefing(
+                    detections=[],
+                    risk_score=rs,
+                    route_info={"origin": "N/A", "destination": "N/A"},
+                    driver_info={"name": "Flota", "status": "active"},
+                    mock=False
+                )
 
             return {"briefing": briefing}
         except Exception as e:

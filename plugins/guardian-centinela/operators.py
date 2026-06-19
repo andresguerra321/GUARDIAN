@@ -37,12 +37,10 @@ class RunCentinela(foo.Operator):
             dataset = ctx.dataset
 
             # Intentar importar la función real
-            agents_imported = False
             if not use_mock:
                 try:
-                    # from agents.centinela import analyze_frame
-                    # agents_imported = True
-                    pass
+                    from agents.centinela import analyze_frame
+                    agents_imported = True
                 except ImportError:
                     agents_imported = False
 
@@ -74,6 +72,20 @@ class RunCentinela(foo.Operator):
                         detections.append(det)
                     
                     sample["detections"] = fo.Detections(detections=detections)
+                else:
+                    # Integración real
+                    if sample.filepath:
+                        api_dets = analyze_frame(sample.filepath, mock=False)
+                        fo_dets = []
+                        for d in api_dets:
+                            fo_dets.append(fo.Detection(
+                                label=d.label,
+                                bounding_box=d.bounding_box,
+                                confidence=d.confidence,
+                                severity=d.severity,
+                                description=d.description
+                            ))
+                        sample["detections"] = fo.Detections(detections=fo_dets)
 
             # Recargar dataset en la UI
             ctx.trigger("reload_dataset")
