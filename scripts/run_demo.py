@@ -11,7 +11,8 @@ from pathlib import Path
 import fiftyone as fo
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from datasets.load_dashcam import load_frames_dataset
+from shared.config import FRAMES_DIR
+from datasets.load_dashcam import from_frames_dir
 
 def run_demo():
     """Ejecuta la demo completa de GUARDIAN."""
@@ -23,8 +24,8 @@ def run_demo():
     os.environ["FIFTYONE_PLUGINS_DIR"] = plugins_dir
     print(f"🔌 Directorio de plugins configurado en: {plugins_dir}")
 
-    # 2. Cargar dataset
-    dataset = load_frames_dataset()
+    # 2. Cargar dataset usando frames_dir
+    dataset = from_frames_dir(FRAMES_DIR)
 
     # 3. Lanzar FiftyOne App
     print("\n🚀 Lanzando Centro de Control FiftyOne...")
