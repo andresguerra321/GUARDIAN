@@ -8,5 +8,3 @@ fiftyone:
   version: ">=0.23.0"
 panels:
   - GuardianDashboard
-operators:
-  - refresh_dashboard

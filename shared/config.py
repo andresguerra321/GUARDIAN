@@ -8,3 +8,5 @@ PROJECT_NAME = "GUARDIAN"
 VERSION = "1.0"
 MAX_RISK_SCORE = 10.0
 SEVERITY_LEVELS = ["info", "warning", "danger", "emergency"]
+DATASET_NAME = 'guardian'
+FRAMES_DIR = 'demo-assets/frames'
