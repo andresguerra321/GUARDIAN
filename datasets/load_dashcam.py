@@ -16,6 +16,7 @@ Uso:
 
 import argparse
 import os
+from pathlib import Path
 import fiftyone as fo
 import fiftyone.zoo as foz
 
