@@ -6,8 +6,11 @@ Operators de FiftyOne para el agente Copiloto (LLM interactivo y Briefing).
 
 import os
 
+# pyrefly: ignore [missing-import]
 import fiftyone as fo
+# pyrefly: ignore [missing-import]
 import fiftyone.operators as foo
+# pyrefly: ignore [missing-import]
 import fiftyone.operators.types as types
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
