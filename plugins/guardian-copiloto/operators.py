@@ -11,6 +11,7 @@ from pathlib import Path
 _PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(_PLUGIN_DIR))
 
+
 import fiftyone as fo
 import fiftyone.operators as foo
 import fiftyone.operators.types as types

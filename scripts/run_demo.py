@@ -1,4 +1,10 @@
+import os
 import fiftyone as fo
+from pathlib import Path
+
+# Forzar a FiftyOne a leer la carpeta local de plugins
+os.environ["FIFTYONE_PLUGINS_DIR"] = str(Path(__file__).parent.parent / "plugins")
+fo.config.plugins_dir = os.environ["FIFTYONE_PLUGINS_DIR"]
 
 def main():
     print("🔥 Levantando la demo maestra de GUARDIAN...")
