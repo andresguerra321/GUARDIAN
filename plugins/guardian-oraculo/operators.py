@@ -5,6 +5,14 @@ GUARDIAN - Oráculo Operators
 Operators de FiftyOne para el agente Oráculo.
 """
 
+import os
+import sys
+from pathlib import Path
+
+project_root = str(Path(__file__).parent.parent.parent)
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import fiftyone as fo
 import fiftyone.operators as foo
 import fiftyone.operators.types as types
