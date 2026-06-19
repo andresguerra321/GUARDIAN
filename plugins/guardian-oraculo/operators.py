@@ -121,5 +121,4 @@ class EvaluateRisk(foo.Operator):
         except Exception as e:
             return {"status": "error", "message": f"Aviso de Guardian: {str(e)}"}
 
-def register(p):
-    p.register(EvaluateRisk)
+
