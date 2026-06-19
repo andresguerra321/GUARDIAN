@@ -1,5 +1,4 @@
 """
-<<<<<<< HEAD
 GUARDIAN · Rol 1 — Carga de dashcam en FiftyOne
 ================================================
 Objetivo de la HORA 1: tener un fo.Dataset navegable en la App con >=10 frames.
@@ -21,18 +20,6 @@ import fiftyone as fo
 import fiftyone.zoo as foz
 
 DATASET_NAME = "guardian"   # nombre acordado con el equipo. NO lo cambies sin avisar.
-=======
-GUARDIAN - Carga de Dataset de Dashcam
-=======================================
-Script para cargar videos/frames de dashcam en un dataset de FiftyOne.
-"""
-
-import os
-import glob
-from datetime import datetime
-from pathlib import Path
-import fiftyone as fo
->>>>>>> f622f44db5f3cacd69a0a666263f8ea1c586112c
 
 # Ajustamos import para correr como módulo o directo
 import sys
@@ -74,7 +61,6 @@ def from_frames_dir(frames_dir):
     Esto es lo MAS robusto para un hackathon: cero problemas de codec de video.
     Cada frame es un sample independiente -> los operators del Rol 2 corren directo.
     """
-<<<<<<< HEAD
     if not os.path.isdir(frames_dir):
         raise NotADirectoryError(f"No existe la carpeta: {frames_dir}")
 
@@ -128,39 +114,6 @@ def main():
     print(f"Persistente: {dataset.persistent}")
     print("\nPara verlo:  fiftyone app launch")
     print(f"En Python :  fo.load_dataset('{DATASET_NAME}')")
-=======
-    Carga frames de dashcam en un dataset de FiftyOne con metadata mock.
-    """
-    print(f"Cargando dataset '{DATASET_NAME}'...")
-    
-    # Eliminar dataset anterior si existe para tener una demo limpia
-    if fo.dataset_exists(DATASET_NAME):
-        dataset = fo.load_dataset(DATASET_NAME)
-        dataset.clear()
-    else:
-        dataset = fo.Dataset(DATASET_NAME)
-    
-    # Asegurar que el directorio exista
-    os.makedirs(FRAMES_DIR, exist_ok=True)
-    
-    filepaths = sorted(glob.glob(os.path.join(FRAMES_DIR, "*.*")))
-    
-    if not filepaths:
-        print(f"⚠️ No hay imágenes en {FRAMES_DIR}. Por favor, añade imágenes primero.")
-        return dataset
-        
-    samples = []
-    for filepath in filepaths:
-        if not filepath.lower().endswith(('.png', '.jpg', '.jpeg')):
-            continue
-            
-        sample = fo.Sample(filepath=filepath)
-        # Añadimos la metadata (esto lo debía hacer Rol 1)
-        sample["vehicle_id"] = "VH-001"
-        sample["driver_id"] = "DR-001"
-        sample["timestamp"] = datetime.now().isoformat()
-        samples.append(sample)
->>>>>>> f622f44db5f3cacd69a0a666263f8ea1c586112c
 
     dataset.add_samples(samples)
     dataset.persistent = True
