@@ -45,6 +45,7 @@ class GuardianDashboard(foo.Panel):
             name="guardian_dashboard",
             label="🛡️ GUARDIAN Dashboard",
             icon="shield",
+            category="Analyze",
         )
 
     # ==================================================================

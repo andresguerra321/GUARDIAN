@@ -1,26 +1,45 @@
+"""
+GUARDIAN - Script Maestro de Demo
+==================================
+
+Ejecuta toda la pipeline de GUARDIAN de inicio a fin para la demo.
+"""
+
 import os
-import fiftyone as fo
+import sys
 from pathlib import Path
 
-# Forzar a FiftyOne a leer la carpeta local de plugins
-os.environ["FIFTYONE_PLUGINS_DIR"] = str(Path(__file__).parent.parent / "plugins")
-fo.config.plugins_dir = os.environ["FIFTYONE_PLUGINS_DIR"]
+import fiftyone as fo
 
-def main():
-    print("🔥 Levantando la demo maestra de GUARDIAN...")
+# Configurar ruta de plugins ANTES de lanzar session
+plugins_dir = str(Path(__file__).parent.parent / "plugins")
+os.environ["FIFTYONE_PLUGINS_DIR"] = plugins_dir
+fo.config.plugins_dir = plugins_dir
+print(f"🔌 Directorio de plugins configurado en: {plugins_dir}")
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from shared.config import FRAMES_DIR
+from datasets.load_dashcam import from_frames_dir
+
+def run_demo():
+    """Ejecuta la demo completa de GUARDIAN."""
+    print("🛡️ GUARDIAN — Iniciando Demo")
+    print("=" * 50)
+
+
+    # 2. Cargar dataset usando frames_dir
+    dataset = from_frames_dir(FRAMES_DIR)
+
+    # 3. Lanzar FiftyOne App
+    print("\n🚀 Lanzando Centro de Control FiftyOne...")
+    session = fo.launch_app(dataset, port=5151)
     
-    datasets = fo.list_datasets()
-    if "guardian" not in datasets:
-        print("⚠️ Grave: no existe el dataset 'guardian'.")
-        print("Dile al Rol 1 que ejecute 'load_dashcam.py' primero para cargar los datos.")
-        return
-
-    dataset = fo.load_dataset("guardian")
-    print(f"📊 Dataset 'guardian' cargado con {len(dataset)} frames.")
-
-    print("🖥️ Abriendo FiftyOne App para la magia...")
-    session = fo.launch_app(dataset)
-    session.wait()
+    print("\n" + "="*50)
+    print("➡️ Entra a http://localhost:5151 en tu navegador.")
+    print("="*50 + "\n")
+    
+    # Mantener el proceso vivo
+    session.wait(-1)
 
 if __name__ == "__main__":
-    main()
+    run_demo()
