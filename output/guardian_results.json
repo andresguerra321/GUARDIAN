@@ -1,0 +1,236 @@
+{
+  "timestamp": "2026-06-19T15:55:01.168051",
+  "route": {
+    "origin": "Bogota",
+    "destination": "Bucaramanga"
+  },
+  "driver": {
+    "name": "Carlos Perez",
+    "hours_driving": 4.5,
+    "status": "active"
+  },
+  "avg_risk_score": 3.3,
+  "total_detections": 19,
+  "briefing": "🛡️ BRIEFING GUARDIAN — Ruta Bogotá → Bucaramanga\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n⚠️ Riesgo general: ALTO (7.3/10)\n\n📍 Puntos críticos detectados:\n  1. Km 45-78: Lluvia intensa + historial de 5 accidentes previos\n  2. Km 112: Zona escolar con peatones detectados\n  3. Km 180-195: Curvas cerradas, superficie mojada\n\n✅ Recomendaciones:\n  • Reducir velocidad a 40km/h en tramos marcados\n  • Parada de descanso en km 150 (llevas 3.5h conduciendo)\n  • Mantener luces encendidas por condiciones de lluvia\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nBuen viaje. GUARDIAN te acompaña. 🚛",
+  "frames_analyzed": 6,
+  "conversations": [
+    {
+      "question": "Como esta la situacion de la ruta?",
+      "answer": "🗺️ Tu ruta actual Bogotá → Bucaramanga tiene riesgo ALTO en el tramo km 45-78. La variante por Barbosa añade 25 min pero reduce riesgo un 60%. ¿Quieres que recalcule?"
+    },
+    {
+      "question": "Estoy un poco cansado, que me recomiendas?",
+      "answer": "⚠️ Entiendo que estás cansado. Tu seguridad es lo primero. Hay un punto de descanso en 12 km (estación El Roble). Te recomiendo parar ahí al menos 20 minutos. ¿Te parece?"
+    },
+    {
+      "question": "Hay alguna ruta alternativa mas segura?",
+      "answer": "🗺️ Tu ruta actual Bogotá → Bucaramanga tiene riesgo ALTO en el tramo km 45-78. La variante por Barbosa añade 25 min pero reduce riesgo un 60%. ¿Quieres que recalcule?"
+    }
+  ],
+  "frame_results": [
+    {
+      "frame": "frame_0001.jpg",
+      "scene_summary": "Vía urbana con clima soleado. Presencia de vehículos en circulación y estacionados, así como peatones en las aceras. Se observa un paso de cebra y una señal de límite de velocidad (30 km/h) en la calzada, indicando una zona que requiere atención.",
+      "overall_risk": "medium",
+      "risk_score": 2.6,
+      "risk_level": "low",
+      "risk_factors": [
+        "pedestrian_zone",
+        "high_object_density",
+        "cloudy"
+      ],
+      "recommendation": "Precaución moderada. Zona con peatones, mantener atención.",
+      "detections": [
+        {
+          "label": "pedestrian",
+          "confidence": 0.95,
+          "severity": "low",
+          "description": "Peatón caminando en la acera izquierda, lejos de la calzada principal."
+        },
+        {
+          "label": "vehicle",
+          "confidence": 0.98,
+          "severity": "medium",
+          "description": "Taxi amarillo circulando en el carril opuesto, aproximándose al paso de cebra."
+        },
+        {
+          "label": "vehicle",
+          "confidence": 0.95,
+          "severity": "low",
+          "description": "Vehículo plateado estacionado en una entrada lateral, no obstruye la vía principal."
+        },
+        {
+          "label": "sign",
+          "confidence": 0.9,
+          "severity": "medium",
+          "description": "Señal de límite de velocidad (30 km/h) pintada sobre la calzada, indicando zona de precaución."
+        },
+        {
+          "label": "sign",
+          "confidence": 0.98,
+          "severity": "medium",
+          "description": "Paso de cebra marcado en la calzada, indicando zona de cruce peatonal."
+        },
+        {
+          "label": "vehicle",
+          "confidence": 0.85,
+          "severity": "low",
+          "description": "Furgoneta blanca circulando a lo lejos en el mismo sentido de la vía."
+        },
+        {
+          "label": "road_condition",
+          "confidence": 0.7,
+          "severity": "low",
+          "description": "Marcas viales amarillas ligeramente descoloridas en el centro de la calzada."
+        }
+      ]
+    },
+    {
+      "frame": "frame_0017.jpg",
+      "scene_summary": "La imagen muestra principalmente el rostro y torso superior de una persona muy cerca de la cámara, posiblemente dentro de la cabina del vehículo. El fondo está desenfocado y no se observa la vía ni elementos externos relevantes para la seguridad vial.",
+      "overall_risk": "low",
+      "risk_score": 0.5,
+      "risk_level": "low",
+      "risk_factors": [
+        "cloudy"
+      ],
+      "recommendation": "Condiciones normales. Mantener velocidad y distancia de seguridad.",
+      "detections": []
+    },
+    {
+      "frame": "frame_0033.jpg",
+      "scene_summary": "La imagen proporcionada es un primer plano del conductor dentro del vehículo, con una visibilidad nula de la vía y el entorno exterior. No es posible identificar elementos de riesgo vial según las categorías permitidas.",
+      "overall_risk": "high",
+      "risk_score": 1.3,
+      "risk_level": "low",
+      "risk_factors": [
+        "cloudy",
+        "driver_fatigue"
+      ],
+      "recommendation": "Condiciones normales. Mantener velocidad y distancia de seguridad.",
+      "detections": []
+    },
+    {
+      "frame": "frame_0049.jpg",
+      "scene_summary": "[FALLBACK] Error al analizar: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please ",
+      "overall_risk": "medium",
+      "risk_score": 4.4,
+      "risk_level": "medium",
+      "risk_factors": [
+        "pedestrian_zone",
+        "1_high_severity_detections",
+        "cloudy",
+        "driver_fatigue"
+      ],
+      "recommendation": "⚠️ Riesgo ALTO. Reducir velocidad a 30km/h, peatones en la vía. Llevas 4h conduciendo, buscar punto de descanso.",
+      "detections": [
+        {
+          "label": "vehicle",
+          "confidence": 0.92,
+          "severity": "low",
+          "description": "Vehículo en carril contrario a distancia segura"
+        },
+        {
+          "label": "pedestrian",
+          "confidence": 0.87,
+          "severity": "high",
+          "description": "Peatón cruzando fuera de paso cebra a aproximadamente 30 metros"
+        },
+        {
+          "label": "sign",
+          "confidence": 0.95,
+          "severity": "low",
+          "description": "Señal de límite de velocidad 60 km/h"
+        },
+        {
+          "label": "road_condition",
+          "confidence": 0.73,
+          "severity": "medium",
+          "description": "Superficie mojada, posible lluvia reciente"
+        }
+      ]
+    },
+    {
+      "frame": "frame_0065.jpg",
+      "scene_summary": "[FALLBACK] Error al analizar: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please ",
+      "overall_risk": "medium",
+      "risk_score": 5.1,
+      "risk_level": "medium",
+      "risk_factors": [
+        "pedestrian_zone",
+        "1_high_severity_detections",
+        "cloudy",
+        "driver_fatigue",
+        "speeding"
+      ],
+      "recommendation": "⚠️ Riesgo ALTO. Reducir velocidad a 30km/h, peatones en la vía. Llevas 5h conduciendo, buscar punto de descanso.",
+      "detections": [
+        {
+          "label": "vehicle",
+          "confidence": 0.92,
+          "severity": "low",
+          "description": "Vehículo en carril contrario a distancia segura"
+        },
+        {
+          "label": "pedestrian",
+          "confidence": 0.87,
+          "severity": "high",
+          "description": "Peatón cruzando fuera de paso cebra a aproximadamente 30 metros"
+        },
+        {
+          "label": "sign",
+          "confidence": 0.95,
+          "severity": "low",
+          "description": "Señal de límite de velocidad 60 km/h"
+        },
+        {
+          "label": "road_condition",
+          "confidence": 0.73,
+          "severity": "medium",
+          "description": "Superficie mojada, posible lluvia reciente"
+        }
+      ]
+    },
+    {
+      "frame": "frame_0081.jpg",
+      "scene_summary": "[FALLBACK] Error al analizar: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please ",
+      "overall_risk": "medium",
+      "risk_score": 5.7,
+      "risk_level": "medium",
+      "risk_factors": [
+        "pedestrian_zone",
+        "1_high_severity_detections",
+        "cloudy",
+        "driver_fatigue",
+        "speeding"
+      ],
+      "recommendation": "⚠️ Riesgo ALTO. Reducir velocidad a 30km/h, peatones en la vía. Llevas 6h conduciendo, buscar punto de descanso.",
+      "detections": [
+        {
+          "label": "vehicle",
+          "confidence": 0.92,
+          "severity": "low",
+          "description": "Vehículo en carril contrario a distancia segura"
+        },
+        {
+          "label": "pedestrian",
+          "confidence": 0.87,
+          "severity": "high",
+          "description": "Peatón cruzando fuera de paso cebra a aproximadamente 30 metros"
+        },
+        {
+          "label": "sign",
+          "confidence": 0.95,
+          "severity": "low",
+          "description": "Señal de límite de velocidad 60 km/h"
+        },
+        {
+          "label": "road_condition",
+          "confidence": 0.73,
+          "severity": "medium",
+          "description": "Superficie mojada, posible lluvia reciente"
+        }
+      ]
+    }
+  ]
+}
