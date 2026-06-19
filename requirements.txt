@@ -1,7 +1,5 @@
 # Core
 fiftyone>=1.2.0
-fiftyone-plugins>=0.1.0
-
 # AI / ML
 google-genai>=1.0.0
 ultralytics>=8.0.0

@@ -3,46 +3,41 @@ GUARDIAN - Script Maestro de Demo
 ==================================
 
 Ejecuta toda la pipeline de GUARDIAN de inicio a fin para la demo.
-
-Uso:
-  python scripts/run_demo.py
-
-Flujo:
-  1. Cargar dataset en FiftyOne
-  2. Ejecutar Centinela (detecciones) sobre los frames
-  3. Ejecutar Oráculo (evaluación de riesgo)
-  4. Generar briefing del Copiloto
-  5. Lanzar FiftyOne App con el Panel Dashboard
-
-TODO (Rol 5):
-  - [ ] Implementar flujo completo de demo
-  - [ ] Añadir manejo de errores robusto
-  - [ ] Añadir logging para troubleshooting
 """
 
-# import fiftyone as fo
-# from datasets.load_dashcam import load_frames_dataset
-# from agents.centinela import analyze_frame
-# from agents.oraculo import evaluate_risk
-# from agents.copiloto import generate_briefing
+import os
+import sys
+from pathlib import Path
+import fiftyone as fo
 
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from datasets.load_dashcam import load_frames_dataset
 
 def run_demo():
     """Ejecuta la demo completa de GUARDIAN."""
-
-    print("🛡️ GUARDIAN — Demo")
+    print("🛡️ GUARDIAN — Iniciando Demo")
     print("=" * 50)
+    
+    # 1. Configurar ruta de plugins para FiftyOne automáticamente
+    plugins_dir = str(Path(__file__).parent.parent / "plugins")
+    os.environ["FIFTYONE_PLUGINS_DIR"] = plugins_dir
+    print(f"🔌 Directorio de plugins configurado en: {plugins_dir}")
 
-    # TODO: Implementar
-    # 1. Cargar dataset
-    # 2. Ejecutar detecciones
-    # 3. Evaluar riesgo
-    # 4. Generar briefing
-    # 5. Lanzar App
+    # 2. Cargar dataset
+    dataset = load_frames_dataset()
 
-    print("\n⚠️ Demo aún no implementada. Cada rol debe completar su parte.")
-    print("Consulta docs/roles.md para ver las responsabilidades.")
-
+    # 3. Lanzar FiftyOne App
+    print("\n🚀 Lanzando Centro de Control FiftyOne...")
+    session = fo.launch_app(dataset)
+    
+    print("\n" + "="*50)
+    print("✅ GUARDIAN está en línea.")
+    print("➡️ Entra a http://localhost:5151 en tu navegador.")
+    print("➡️ Presiona '`' (acento grave) o usa la barra superior para ejecutar los Agentes.")
+    print("="*50 + "\n")
+    
+    # Mantener el proceso vivo
+    session.wait(-1)
 
 if __name__ == "__main__":
     run_demo()

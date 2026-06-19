@@ -1,4 +1,7 @@
 """
-GUARDIAN - Plugin Oráculo
-Operator de evaluación de riesgo por zona/escena.
+GUARDIAN - Oráculo Plugin
 """
+from .operators import EvaluateRisk
+
+def register(p):
+    p.register(EvaluateRisk)

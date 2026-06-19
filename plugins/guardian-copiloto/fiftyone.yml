@@ -1,9 +1,8 @@
-name: guardian-copiloto
-version: 0.1.0
-description: >
-  Agente Copiloto - Asistente conversacional para conductores.
-  Genera briefings de ruta, responde preguntas, y comunica alertas
-  en lenguaje natural basándose en el contexto de detecciones y riesgo.
+name: "guardian-copiloto"
+version: "1.0.0"
+description: "GUARDIAN - Agente Copiloto LLM para análisis y consulta interactiva."
+fiftyone:
+  version: ">=0.21.0"
 operators:
   - ask_copiloto
   - generate_briefing
