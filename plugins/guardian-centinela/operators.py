@@ -9,6 +9,7 @@ import random
 import fiftyone as fo
 import fiftyone.operators as foo
 import fiftyone.operators.types as types
+from shared import config
 
 class RunCentinela(foo.Operator):
     @property
@@ -45,7 +46,7 @@ class RunCentinela(foo.Operator):
                 except ImportError:
                     agents_imported = False
 
-            labels = ["vehicle", "pedestrian", "obstacle", "sign", "pothole"]
+            labels = config.DETECTION_LABELS
 
             for sample in dataset.iter_samples(autosave=True, progress=True):
                 if use_mock or not agents_imported:
@@ -59,12 +60,14 @@ class RunCentinela(foo.Operator):
                         w = random.uniform(0.05, 1.0 - x)
                         h = random.uniform(0.05, 1.0 - y)
                         
-                        severity = random.randint(1, 5)
-                        description = f"{label} detectado con severidad {severity}"
+                        severity = random.choice(config.SEVERITY_LEVELS)
+                        confidence = random.uniform(0.4, 0.99)
+                        description = f"{label} detectado ({severity})"
                         
                         det = fo.Detection(
                             label=label,
                             bounding_box=[x, y, w, h],
+                            confidence=confidence,
                             severity=severity,
                             description=description
                         )

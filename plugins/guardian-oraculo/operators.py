@@ -61,14 +61,14 @@ class EvaluateRisk(foo.Operator):
                 # Limitar el score a 10.0 (según contrato)
                 risk_score = min(float(risk_score), 10.0)
                 
-                # Determinar nivel de riesgo
-                if risk_score < 3.0:
+                # Determinar nivel de riesgo según RiskScore
+                if risk_score <= 3.0:
                     risk_level = "low"
                     recommendation = "Continúe ruta normal."
-                elif risk_score < 6.0:
+                elif risk_score <= 6.0:
                     risk_level = "medium"
                     recommendation = "Precaución: Manténgase alerta al entorno."
-                elif risk_score < 8.5:
+                elif risk_score <= 8.0:
                     risk_level = "high"
                     recommendation = "Alerta: Reduzca la velocidad inmediatamente."
                 else:
@@ -80,6 +80,7 @@ class EvaluateRisk(foo.Operator):
                 sample["risk_level"] = str(risk_level)
                 sample["risk_factors"] = risk_factors  # list de str
                 sample["recommendation"] = str(recommendation)
+                sample["historical_incidents"] = 0
 
             # Recargar dataset en la UI
             ctx.trigger("reload_dataset")
