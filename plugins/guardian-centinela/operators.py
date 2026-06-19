@@ -6,18 +6,15 @@ Operators de FiftyOne para el agente Centinela.
 """
 
 import os
-import sys
 from pathlib import Path
 
-project_root = str(Path(__file__).parent.parent.parent)
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+_PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(_PLUGIN_DIR))
 
 import random
 import fiftyone as fo
 import fiftyone.operators as foo
 import fiftyone.operators.types as types
-from shared import config
 
 class RunCentinela(foo.Operator):
     @property
@@ -41,6 +38,12 @@ class RunCentinela(foo.Operator):
 
     def execute(self, ctx):
         try:
+            import sys
+            if _PROJECT_ROOT not in sys.path:
+                sys.path.insert(0, _PROJECT_ROOT)
+            
+            from shared import config
+            
             use_mock = ctx.params.get("use_mock", True)
             dataset = ctx.dataset
 

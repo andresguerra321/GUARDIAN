@@ -6,12 +6,10 @@ Operators de FiftyOne para el agente Oráculo.
 """
 
 import os
-import sys
 from pathlib import Path
 
-project_root = str(Path(__file__).parent.parent.parent)
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+_PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(_PLUGIN_DIR))
 
 import fiftyone as fo
 import fiftyone.operators as foo
@@ -40,6 +38,10 @@ class EvaluateRisk(foo.Operator):
 
     def execute(self, ctx):
         try:
+            import sys
+            if _PROJECT_ROOT not in sys.path:
+                sys.path.insert(0, _PROJECT_ROOT)
+                
             use_mock = ctx.params.get("use_mock", False)
             dataset = ctx.dataset
             

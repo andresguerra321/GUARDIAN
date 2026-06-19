@@ -6,12 +6,10 @@ Operators de FiftyOne para el agente Copiloto (LLM interactivo y Briefing).
 """
 
 import os
-import sys
 from pathlib import Path
 
-project_root = str(Path(__file__).parent.parent.parent)
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
+_PLUGIN_DIR = os.path.dirname(os.path.abspath(__file__))
+_PROJECT_ROOT = os.path.dirname(os.path.dirname(_PLUGIN_DIR))
 
 import fiftyone as fo
 import fiftyone.operators as foo
@@ -39,6 +37,10 @@ class AskCopiloto(foo.Operator):
 
     def execute(self, ctx):
         try:
+            import sys
+            if _PROJECT_ROOT not in sys.path:
+                sys.path.insert(0, _PROJECT_ROOT)
+                
             user_message = ctx.params.get("user_message", "")
             
             # Bloque try-except de control para integración futura
@@ -96,6 +98,10 @@ class GenerateBriefing(foo.Operator):
 
     def execute(self, ctx):
         try:
+            import sys
+            if _PROJECT_ROOT not in sys.path:
+                sys.path.insert(0, _PROJECT_ROOT)
+                
             dataset = ctx.dataset
             
             total_samples = 0
