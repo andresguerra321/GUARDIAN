@@ -230,8 +230,12 @@ def evaluate_risk_with_ai(
     """
     try:
         from google import genai as genai_module
-
+        
         client = genai_module.Client(api_key=os.getenv("GEMINI_API_KEY", ""))
+        
+        # Cargar prompt del oraculo
+        prompt_path = Path(__file__).parent / "prompts" / "oraculo_system.md"
+        system_prompt = prompt_path.read_text(encoding="utf-8") if prompt_path.exists() else "Eres un evaluador de riesgo."
 
         # Preparar contexto
         det_text = "\n".join(
@@ -254,7 +258,11 @@ Responde en JSON con: score (0-10), factors (lista), recommendation (texto accio
         response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=[prompt],
-            config={"response_mime_type": "application/json", "temperature": 0.1},
+            config=genai_module.types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                response_mime_type="application/json",
+                temperature=0.1
+            ),
         )
 
         result = json.loads(response.text)
