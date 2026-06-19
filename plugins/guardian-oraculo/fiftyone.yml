@@ -6,4 +6,3 @@ description: >
   para generar un score de riesgo y recomendaciones.
 operators:
   - evaluate_risk
-  - evaluate_risk_batch

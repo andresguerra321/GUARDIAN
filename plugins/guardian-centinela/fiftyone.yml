@@ -6,4 +6,3 @@ description: >
   señalización y condiciones de vía.
 operators:
   - run_centinela
-  - run_centinela_batch
