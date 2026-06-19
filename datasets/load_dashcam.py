@@ -115,10 +115,6 @@ def main():
     print(f"Persistente: {dataset.persistent}")
     print("\nPara verlo:  fiftyone app launch")
     print(f"En Python :  fo.load_dataset('{DATASET_NAME}')")
-
-    dataset.add_samples(samples)
-    dataset.persistent = True
-    print(f"✅ Dataset '{DATASET_NAME}' cargado exitosamente con {len(dataset)} imágenes.")
     
     return dataset
 
