@@ -8,6 +8,12 @@ Ejecuta toda la pipeline de GUARDIAN de inicio a fin para la demo.
 import os
 import sys
 from pathlib import Path
+
+# Configurar ruta de plugins ANTES de importar fiftyone
+plugins_dir = str(Path(__file__).parent.parent / "plugins")
+os.environ["FIFTYONE_PLUGINS_DIR"] = plugins_dir
+print(f"🔌 Directorio de plugins configurado en: {plugins_dir}")
+
 import fiftyone as fo
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -18,11 +24,6 @@ def run_demo():
     """Ejecuta la demo completa de GUARDIAN."""
     print("🛡️ GUARDIAN — Iniciando Demo")
     print("=" * 50)
-    
-    # 1. Configurar ruta de plugins para FiftyOne automáticamente
-    plugins_dir = str(Path(__file__).parent.parent / "plugins")
-    os.environ["FIFTYONE_PLUGINS_DIR"] = plugins_dir
-    print(f"🔌 Directorio de plugins configurado en: {plugins_dir}")
 
     # 2. Cargar dataset usando frames_dir
     dataset = from_frames_dir(FRAMES_DIR)
