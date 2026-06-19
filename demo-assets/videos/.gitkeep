@@ -1,0 +1,5 @@
+# Demo Assets — Videos
+# Coloca aquí los videos de dashcam para la demo.
+# Formatos recomendados: .mp4, .avi
+# NOTA: Los videos están en .gitignore (son muy pesados para Git).
+# Descárgalos localmente con: python scripts/download_demo_assets.py

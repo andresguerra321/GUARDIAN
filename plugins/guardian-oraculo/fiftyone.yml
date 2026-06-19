@@ -1,0 +1,9 @@
+name: guardian-oraculo
+version: 0.1.0
+description: >
+  Agente Oráculo - Evaluación de riesgo por zona/escena.
+  Combina detecciones del Centinela con metadata (GPS, clima, historial)
+  para generar un score de riesgo y recomendaciones.
+operators:
+  - evaluate_risk
+  - evaluate_risk_batch
